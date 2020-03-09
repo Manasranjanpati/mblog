@@ -8,7 +8,7 @@
 
 
 {%for objects in query%}
-<!--{% url "blog_detail" id=objects.id%}-->
+<!--{% url "blog:blog_detail" id=objects.id%}-->
 <a href='{{ objects.get_absolute_url}}'>{{objects.title}}</a><br>
 {{objects.content}}<br>
 {{objects.published}}<br>

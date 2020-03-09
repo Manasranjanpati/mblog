@@ -1,6 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 from .models import Blog
+from .forms import BlogForm
 
 def blog_list(request):
     query = Blog.objects.all()
@@ -19,10 +20,27 @@ def blog_detail(request, id=None):
     return render(request, "post_detail.html",data)
 
 def blog_create(request):
-    return HttpResponse('<h1>Create Manas</h1>')
+    form = BlogForm(request.POST)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+    context ={
+        "form":form
+    }
+    return render(request,"post_create.html",context)
 
-def blog_update(request):
-    return HttpResponse('<h1>Update Manas</h1>')
+def blog_update(request, id=None):
+    instance = get_object_or_404(Blog,id=id)
+    form = BlogForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        context ={
+            "title":instance.title,
+            "instance":instance,
+            "form":form,
+            }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+    return render(request,"post_create.html",context)
 
 def blog_delete(request):
     return HttpResponse('<h1>Delete Manas</h1>')

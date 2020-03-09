@@ -12,6 +12,6 @@ class Blog(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("blog_detail", kwargs={"id":self.id})
-        return "/blog/%s/" %(self.id)   
+        return reverse("blog:blog_detail", kwargs={"id":self.id})
+        # return "/blog/%s/" %(self.id)   
     
